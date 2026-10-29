@@ -1,11 +1,12 @@
 import { GameScene } from './scenes/GameScene.js';
+import { COLOR_HEX, GAME_HEIGHT, GAME_WIDTH } from './config.js';
 
 const config = {
   type: Phaser.AUTO,
   parent: 'game-container',
-  width: 390,
-  height: 844,
-  backgroundColor: '#F3E8D0',
+  width: GAME_WIDTH,
+  height: GAME_HEIGHT,
+  backgroundColor: COLOR_HEX.background,
   scene: [GameScene],
   scale: {
     mode: Phaser.Scale.FIT,
@@ -13,4 +14,4 @@ const config = {
   },
 };
 
-new Phaser.Game(config);
+window.game = new Phaser.Game(config);
