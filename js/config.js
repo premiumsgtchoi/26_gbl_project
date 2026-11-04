@@ -1,6 +1,16 @@
 export const GAME_WIDTH = 390;
 export const GAME_HEIGHT = 844;
 
+export const TIME = {
+  millisecondsPerSecond: 1000,
+  gateFailureResult: 600,
+  gateResume: 700,
+  battleTick: 220,
+  pathMerge: 650,
+  resultOverlay: 500,
+  changeFeedback: 700,
+};
+
 export const COLORS = {
   background: 0xf3e8d0,
   player: 0x1d4ed8,

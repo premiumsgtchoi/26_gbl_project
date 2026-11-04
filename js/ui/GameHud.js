@@ -1,4 +1,4 @@
-import { COLORS, COLOR_HEX, FONT, GAME_HEIGHT, GAME_WIDTH } from '../config.js';
+import { COLORS, COLOR_HEX, FONT, GAME_HEIGHT, GAME_WIDTH, TIME } from '../config.js';
 
 export class GameHud {
   constructor(scene, stageNumber, initialTroops) {
@@ -65,7 +65,7 @@ export class GameHud {
       targets: text,
       y: 145,
       alpha: 0,
-      duration: 700,
+      duration: TIME.changeFeedback,
       onComplete: () => text.destroy(),
     });
   }

@@ -1,6 +1,6 @@
 import { ArmyView } from '../entities/ArmyView.js';
-import { COLORS, COLOR_HEX, FONT, GAME_WIDTH } from '../config.js';
-import { DEMO_STAGE } from '../stageData.js';
+import { COLORS, COLOR_HEX, FONT, GAME_WIDTH, TIME } from '../config.js';
+import { STAGES } from '../stageData.js';
 import { GameHud } from '../ui/GameHud.js';
 import { applyOperation } from '../utils/operations.js';
 
@@ -15,7 +15,8 @@ export class GameScene extends Phaser.Scene {
   }
 
   create() {
-    this.troops = DEMO_STAGE.startingTroops;
+    this.stage = STAGES[0];
+    this.troops = this.stage.startingTroops;
     this.playerX = GAME_WIDTH / 2;
     this.isPaused = false;
     this.isFinished = false;
@@ -24,10 +25,10 @@ export class GameScene extends Phaser.Scene {
     this.cameras.main.setBackgroundColor(COLORS.background);
     this.drawRoad();
     this.course = this.add.container(0, 0).setDepth(10);
-    this.stageEvents = DEMO_STAGE.events.map((event) => this.createStageEvent(event));
+    this.stageEvents = this.stage.events.map((event) => this.createStageEvent(event));
     this.army = new ArmyView(this, this.playerX, PLAYER_Y);
     this.army.setCount(this.troops);
-    this.hud = new GameHud(this, DEMO_STAGE.number, this.troops);
+    this.hud = new GameHud(this, this.stage.number, this.troops);
     this.bindInput();
   }
 
@@ -36,7 +37,7 @@ export class GameScene extends Phaser.Scene {
       return;
     }
 
-    const distance = DEMO_STAGE.speed * (delta / 1000);
+    const distance = this.stage.speed * (delta / TIME.millisecondsPerSecond);
     for (const stageEvent of this.stageEvents) {
       if (stageEvent.handled) {
         continue;
@@ -185,11 +186,11 @@ export class GameScene extends Phaser.Scene {
     this.hud.setStatus(`${choice.operator}${choice.value} 게이트 통과`);
 
     if (this.troops === 0) {
-      this.time.delayedCall(600, () => this.finishStage(false));
+      this.time.delayedCall(TIME.gateFailureResult, () => this.finishStage(false));
       return;
     }
 
-    this.time.delayedCall(700, () => {
+    this.time.delayedCall(TIME.gateResume, () => {
       this.hud.setStatus('다음 경로를 선택하세요');
       this.isPaused = false;
     });
@@ -201,7 +202,7 @@ export class GameScene extends Phaser.Scene {
     this.hud.setStatus(isBoss ? '최종 전투!' : `몬스터 ${enemyCount}마리와 전투`);
 
     const timer = this.time.addEvent({
-      delay: 220,
+      delay: TIME.battleTick,
       repeat: Math.max(enemyCount, this.troops) - 1,
       callback: () => {
         if (enemies > 0 && this.troops > 0) {
@@ -221,7 +222,7 @@ export class GameScene extends Phaser.Scene {
             this.finishStage(true);
           } else {
             this.hud.setStatus('전투 승리! 경로가 다시 합류합니다', COLOR_HEX.positive);
-            this.time.delayedCall(650, () => {
+            this.time.delayedCall(TIME.pathMerge, () => {
               this.playerX = GAME_WIDTH / 2;
               this.army.setX(this.playerX);
               this.hud.setStatus('다음 게이트를 선택하세요');
@@ -258,7 +259,7 @@ export class GameScene extends Phaser.Scene {
     this.isFinished = true;
     this.isPaused = true;
     this.hud.setStatus(success ? '최종 몬스터 격파!' : '병력이 모두 사라졌습니다');
-    this.time.delayedCall(500, () => {
+    this.time.delayedCall(TIME.resultOverlay, () => {
       this.hud.showResult(success, this.troops, () => this.scene.restart());
     });
   }
