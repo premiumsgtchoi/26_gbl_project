@@ -9,13 +9,25 @@ const EVENT_TRIGGER_Y = 610;
 const LEFT_X = 110;
 const RIGHT_X = 280;
 
+function getRequestedStageIndex() {
+  const stageNumber = Number(new URLSearchParams(window.location.search).get('stage'));
+  const stageIndex = stageNumber - 1;
+  return Number.isInteger(stageIndex) && STAGES[stageIndex] ? stageIndex : 0;
+}
+
 export class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
   }
 
+  init(data = {}) {
+    this.stageIndex = Number.isInteger(data.stageIndex)
+      ? data.stageIndex
+      : getRequestedStageIndex();
+  }
+
   create() {
-    this.stage = STAGES[0];
+    this.stage = STAGES[this.stageIndex];
     this.troops = this.stage.startingTroops;
     this.playerX = GAME_WIDTH / 2;
     this.isPaused = false;
@@ -260,7 +272,10 @@ export class GameScene extends Phaser.Scene {
     this.isPaused = true;
     this.hud.setStatus(success ? '최종 몬스터 격파!' : '병력이 모두 사라졌습니다');
     this.time.delayedCall(TIME.resultOverlay, () => {
-      this.hud.showResult(success, this.troops, () => this.scene.restart());
+      const onNext = success && this.stageIndex === 0
+        ? () => this.scene.restart({ stageIndex: 1 })
+        : undefined;
+      this.hud.showResult(success, this.troops, () => this.scene.restart(), onNext);
     });
   }
 }

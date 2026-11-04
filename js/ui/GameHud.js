@@ -70,7 +70,7 @@ export class GameHud {
     });
   }
 
-  showResult(success, troops, onRestart) {
+  showResult(success, troops, onRestart, onNext) {
     const overlay = this.scene.add.container(0, 0).setDepth(100);
     const panelColor = success ? COLORS.positive : COLORS.negative;
 
@@ -96,7 +96,8 @@ export class GameHud {
     overlay.add(this.createButton(195, 474, '다시 하기', true, onRestart));
 
     if (success) {
-      overlay.add(this.createButton(195, 550, '다음 스테이지 (준비 중)', false));
+      const nextLabel = onNext ? '다음 스테이지' : '다음 스테이지 (준비 중)';
+      overlay.add(this.createButton(195, 550, nextLabel, false, onNext));
     }
   }
 
