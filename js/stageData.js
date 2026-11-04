@@ -54,14 +54,14 @@ export const STAGES = [
         type: 'gate',
         y: -360,
         choices: [
-          { operator: '+', value: 6 },
+          { operator: '−', value: 8 },
           { operator: '÷', value: 2 },
         ],
       },
       {
         type: 'boss',
         y: -680,
-        enemies: 10,
+        enemies: 3,
       },
     ],
   },

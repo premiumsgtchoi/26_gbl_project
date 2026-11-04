@@ -32,7 +32,6 @@ export class GameScene extends Phaser.Scene {
     this.playerX = GAME_WIDTH / 2;
     this.isPaused = false;
     this.isFinished = false;
-    this.selectedPath = 0;
 
     this.cameras.main.setBackgroundColor(COLORS.background);
     this.drawRoad();
@@ -181,17 +180,21 @@ export class GameScene extends Phaser.Scene {
     if (stageEvent.data.type === 'gate') {
       this.handleGate(stageEvent.data.choices);
     } else if (stageEvent.data.type === 'pathBattle') {
-      this.startBattle(stageEvent.data.enemies[this.selectedPath], false);
+      const pathIndex = this.getPathIndex();
+      this.startBattle(stageEvent.data.enemies[pathIndex], false);
     } else {
       this.startBattle(stageEvent.data.enemies, true);
     }
   }
 
+  getPathIndex() {
+    return this.playerX < GAME_WIDTH / 2 ? 0 : 1;
+  }
+
   handleGate(choices) {
-    const choiceIndex = this.playerX < GAME_WIDTH / 2 ? 0 : 1;
+    const choiceIndex = this.getPathIndex();
     const choice = choices[choiceIndex];
     const previousTroops = this.troops;
-    this.selectedPath = choiceIndex;
     this.troops = applyOperation(this.troops, choice);
     this.updateTroops();
     this.hud.showChange(this.troops - previousTroops);
