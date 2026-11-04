@@ -15,6 +15,12 @@ function getRequestedStageIndex() {
   return Number.isInteger(stageIndex) && STAGES[stageIndex] ? stageIndex : 0;
 }
 
+function clearStageQuery() {
+  const url = new URL(window.location.href);
+  url.searchParams.delete('stage');
+  window.history.replaceState(null, '', `${url.pathname}${url.search}${url.hash}`);
+}
+
 export class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
@@ -275,10 +281,18 @@ export class GameScene extends Phaser.Scene {
     this.isPaused = true;
     this.hud.setStatus(success ? '최종 몬스터 격파!' : '병력이 모두 사라졌습니다');
     this.time.delayedCall(TIME.resultOverlay, () => {
-      const onNext = success && this.stageIndex === 0
-        ? () => this.scene.restart({ stageIndex: 1 })
+      const isFinalStage = this.stageIndex === STAGES.length - 1;
+      const onRestart = () => this.scene.restart({ stageIndex: this.stageIndex });
+      const onNext = success && !isFinalStage
+        ? () => this.scene.restart({ stageIndex: this.stageIndex + 1 })
         : undefined;
-      this.hud.showResult(success, this.troops, () => this.scene.restart(), onNext);
+      const onStartOver = success && isFinalStage
+        ? () => {
+          clearStageQuery();
+          this.scene.restart({ stageIndex: 0 });
+        }
+        : undefined;
+      this.hud.showResult(success, this.troops, onRestart, onNext, onStartOver);
     });
   }
 }
