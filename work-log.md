@@ -8,3 +8,4 @@
 2026-11-04 11:19:42 / 작업 2의 세 스테이지 데이터 배열화와 동작 관련 숫자 상수화 / js/stageData.js, js/config.js, js/scenes/GameScene.js, js/entities/ArmyView.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 다음 스테이지 연결은 보류하고 스테이지 1을 기본값으로 유지한 채 명세 수치와 모든 선택 경로의 승패를 검증함
 2026-11-04 11:23:16 / 작업 3의 스테이지 1→2 진행과 개발용 stage 쿼리 진입 연결 / js/scenes/GameScene.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 기본 주소는 스테이지 1을 유지하고 유효한 stage 쿼리만 해당 데이터를 선택하도록 제한했으며 두 주소의 HTTP 200 응답과 선택 규칙을 검증함
 2026-11-04 11:26:34 / 일반 몬스터 선택 시 이전 게이트 경로의 적 수가 적용되던 오류 수정 / js/scenes/GameScene.js, spec.md, tasks.md, prompt.txt, work-log.md / 일반 전투가 시작되는 순간의 좌우 위치로 적 수를 선택하고 남아 있던 경로 상태를 제거해 표시 수와 실제 병력 손실을 일치시킴
+2026-11-04 13:46:36 / 작업 4-0의 스테이지별 난이도 수치 조정 / js/stageData.js, spec.md, tasks.md, prompt.txt, work-log.md / 독립적인 게이트·전투 선택을 전수 계산해 1단계 6/8, 2단계 7/8, 3단계 8/32 승리와 2단계 단일 함정 조합을 검증함
