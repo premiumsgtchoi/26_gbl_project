@@ -6,3 +6,4 @@
 2026-11-04 11:11:24 / 미구현 MVP를 Live Server로 확인 가능한 작은 작업 단위로 재작성 / tasks.md, prompt.txt, work-log.md / 완료된 두 작업은 유지하고 명세 밖 항목은 제외하며 남은 기능을 독립적으로 검증 가능한 순서로 나눔
 2026-11-04 11:16:50 / 작업 1의 중세 병사 도형에 투구와 방패 특징 추가 / js/entities/ArmyView.js, tasks.md, prompt.txt, work-log.md / 병력 계산과 배치를 유지하면서 기존 색상만 사용해 작은 실루엣의 식별성을 높이고 전체 JavaScript 문법 검사를 통과함
 2026-11-04 11:19:42 / 작업 2의 세 스테이지 데이터 배열화와 동작 관련 숫자 상수화 / js/stageData.js, js/config.js, js/scenes/GameScene.js, js/entities/ArmyView.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 다음 스테이지 연결은 보류하고 스테이지 1을 기본값으로 유지한 채 명세 수치와 모든 선택 경로의 승패를 검증함
+2026-11-04 11:23:16 / 작업 3의 스테이지 1→2 진행과 개발용 stage 쿼리 진입 연결 / js/scenes/GameScene.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 기본 주소는 스테이지 1을 유지하고 유효한 stage 쿼리만 해당 데이터를 선택하도록 제한했으며 두 주소의 HTTP 200 응답과 선택 규칙을 검증함
