@@ -1,4 +1,5 @@
 import { GameScene } from './scenes/GameScene.js';
+import { StartScene } from './scenes/StartScene.js';
 import { COLOR_HEX, GAME_HEIGHT, GAME_WIDTH } from './config.js';
 
 const config = {
@@ -7,7 +8,7 @@ const config = {
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
   backgroundColor: COLOR_HEX.background,
-  scene: [GameScene],
+  scene: [StartScene, GameScene],
   scale: {
     mode: Phaser.Scale.FIT,
     autoCenter: Phaser.Scale.CENTER_BOTH,

@@ -10,3 +10,4 @@
 2026-11-04 11:26:34 / 일반 몬스터 선택 시 이전 게이트 경로의 적 수가 적용되던 오류 수정 / js/scenes/GameScene.js, spec.md, tasks.md, prompt.txt, work-log.md / 일반 전투가 시작되는 순간의 좌우 위치로 적 수를 선택하고 남아 있던 경로 상태를 제거해 표시 수와 실제 병력 손실을 일치시킴
 2026-11-04 13:46:36 / 작업 4-0의 스테이지별 난이도 수치 조정 / js/stageData.js, spec.md, tasks.md, prompt.txt, work-log.md / 독립적인 게이트·전투 선택을 전수 계산해 1단계 6/8, 2단계 7/8, 3단계 8/32 승리와 2단계 단일 함정 조합을 검증함
 2026-11-04 13:49:24 / 남은 작업 4·5·6의 현재 스테이지 재시작, 2→3 진행, 최종 완료 화면 구현 / js/scenes/GameScene.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 일반 주소와 개발용 stage 쿼리의 새로고침 규칙을 분리하고 실제 장면 콜백 검사로 재시작·다음·처음부터 흐름을 검증함
+2026-11-04 13:54:11 / 작업 7의 일반 접속용 시작 화면 구현 / js/scenes/StartScene.js, js/utils/stageSelection.js, js/scenes/GameScene.js, js/main.js, spec.md, tasks.md, prompt.txt, work-log.md / 일반 주소는 시작 화면을 거치고 유효한 stage 쿼리는 바로 게임에 진입하도록 선택 로직을 공통화해 버튼·우회 흐름을 검증함

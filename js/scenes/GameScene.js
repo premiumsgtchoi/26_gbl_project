@@ -3,17 +3,12 @@ import { COLORS, COLOR_HEX, FONT, GAME_WIDTH, TIME } from '../config.js';
 import { STAGES } from '../stageData.js';
 import { GameHud } from '../ui/GameHud.js';
 import { applyOperation } from '../utils/operations.js';
+import { getRequestedStageIndex } from '../utils/stageSelection.js';
 
 const PLAYER_Y = 670;
 const EVENT_TRIGGER_Y = 610;
 const LEFT_X = 110;
 const RIGHT_X = 280;
-
-function getRequestedStageIndex() {
-  const stageNumber = Number(new URLSearchParams(window.location.search).get('stage'));
-  const stageIndex = stageNumber - 1;
-  return Number.isInteger(stageIndex) && STAGES[stageIndex] ? stageIndex : 0;
-}
 
 function clearStageQuery() {
   const url = new URL(window.location.href);
@@ -29,7 +24,7 @@ export class GameScene extends Phaser.Scene {
   init(data = {}) {
     this.stageIndex = Number.isInteger(data.stageIndex)
       ? data.stageIndex
-      : getRequestedStageIndex();
+      : getRequestedStageIndex(window.location.search, STAGES.length) ?? 0;
   }
 
   create() {
