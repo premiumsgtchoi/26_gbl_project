@@ -1,8 +1,10 @@
-import { COLORS, COLOR_HEX, FONT, GAME_HEIGHT, GAME_WIDTH, TIME } from '../config.js';
+import { COLORS, COLOR_HEX, FONT, TIME } from '../config.js';
+import { createButton, createPopup, createSoundToggleButton } from './uiFactory.js';
 
 export class GameHud {
   constructor(scene, stageNumber, initialTroops) {
     this.scene = scene;
+    createSoundToggleButton(scene);
 
     scene.add.text(24, 24, `STAGE ${stageNumber}`, {
       fontFamily: FONT,
@@ -71,14 +73,18 @@ export class GameHud {
   }
 
   showResult(success, troops, onRestart, onNext, onStartOver) {
-    const overlay = this.scene.add.container(0, 0).setDepth(100);
     const panelColor = success ? COLORS.positive : COLORS.negative;
     const resultTitle = onStartOver
       ? '모든 스테이지 클리어'
       : success ? '스테이지 성공!' : '스테이지 실패';
+    const overlay = createPopup(this.scene, {
+      x: 195,
+      y: 392,
+      width: 342,
+      height: 430,
+      borderColor: panelColor,
+    }).setDepth(100);
 
-    overlay.add(this.scene.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, GAME_WIDTH, GAME_HEIGHT, COLORS.background, 0.96));
-    overlay.add(this.scene.add.rectangle(195, 392, 342, 430, COLORS.background).setStrokeStyle(4, panelColor));
     overlay.add(this.scene.add.text(195, 268, resultTitle, {
       fontFamily: FONT,
       fontSize: '24px',
@@ -97,31 +103,28 @@ export class GameHud {
       fontStyle: 'bold',
     }).setOrigin(0.5, 0));
     if (onStartOver) {
-      overlay.add(this.createButton(195, 474, '처음부터', true, onStartOver));
+      overlay.add(createButton(this.scene, {
+        x: 195,
+        y: 474,
+        label: '처음부터',
+        onClick: onStartOver,
+      }));
     } else {
-      overlay.add(this.createButton(195, 474, '다시 하기', true, onRestart));
+      overlay.add(createButton(this.scene, {
+        x: 195,
+        y: 474,
+        label: '다시 하기',
+        onClick: onRestart,
+      }));
       if (success) {
-        overlay.add(this.createButton(195, 550, '다음 스테이지', false, onNext));
+        overlay.add(createButton(this.scene, {
+          x: 195,
+          y: 550,
+          label: '다음 스테이지',
+          primary: false,
+          onClick: onNext,
+        }));
       }
     }
-  }
-
-  createButton(x, y, label, primary, onClick) {
-    const container = this.scene.add.container(x, y);
-    const background = this.scene.add.rectangle(0, 0, 286, 56, primary ? COLORS.player : COLORS.background)
-      .setStrokeStyle(3, COLORS.player);
-    const text = this.scene.add.text(0, 0, label, {
-      fontFamily: FONT,
-      fontSize: primary ? '24px' : '14px',
-      color: primary ? COLOR_HEX.background : COLOR_HEX.player,
-      fontStyle: 'bold',
-    }).setOrigin(0.5);
-
-    container.add([background, text]);
-    if (onClick) {
-      background.setInteractive({ useHandCursor: true });
-      background.on('pointerdown', onClick);
-    }
-    return container;
   }
 }

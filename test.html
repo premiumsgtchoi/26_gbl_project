@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>플레이어 캐릭터 시안</title>
+    <style>
+      :root {
+        font-family: system-ui, sans-serif;
+        color: #1d4ed8;
+        background: #f3e8d0;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 320px;
+        min-height: 100dvh;
+        margin: 0;
+        display: grid;
+        place-items: center;
+      }
+
+      main {
+        width: min(100%, 390px);
+        padding: 24px 12px;
+        text-align: center;
+      }
+
+      h1 {
+        margin: 0 0 8px;
+        font-size: 24px;
+      }
+
+      .guide {
+        margin: 0 0 24px;
+        font-size: 14px;
+      }
+
+      .drafts {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      figure {
+        min-width: 0;
+        margin: 0;
+        padding: 12px 6px;
+        border: 2px solid #1d4ed8;
+        border-radius: 12px;
+      }
+
+      svg {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      figcaption {
+        margin-top: 8px;
+        font-size: 14px;
+        font-weight: 700;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>플레이어 캐릭터 시안</h1>
+      <p class="guide">둥근 도형의 밝은 중세 카툰 스타일</p>
+
+      <section class="drafts" aria-label="플레이어 캐릭터 시안 세 가지">
+        <figure>
+          <svg viewBox="0 0 100 140" role="img" aria-labelledby="guard-title">
+            <title id="guard-title">둥근 방패를 든 수비병</title>
+            <circle cx="48" cy="37" r="21" fill="#F3E8D0" stroke="#1D4ED8" stroke-width="5" />
+            <path d="M25 36 Q27 10 48 10 Q69 10 72 36 Z" fill="#1D4ED8" />
+            <path d="M31 35 H65" stroke="#F3E8D0" stroke-width="5" stroke-linecap="round" />
+            <rect x="27" y="58" width="42" height="55" rx="18" fill="#1D4ED8" />
+            <path d="M38 106 L34 130 M58 106 L62 130" stroke="#1D4ED8" stroke-width="10" stroke-linecap="round" />
+            <path d="M30 68 L15 94" stroke="#1D4ED8" stroke-width="9" stroke-linecap="round" />
+            <circle cx="76" cy="86" r="20" fill="#F3E8D0" stroke="#1D4ED8" stroke-width="5" />
+            <path d="M76 74 V98 M64 86 H88" stroke="#1D4ED8" stroke-width="5" stroke-linecap="round" />
+          </svg>
+          <figcaption>시안 1<br />수비병</figcaption>
+        </figure>
+
+        <figure>
+          <svg viewBox="0 0 100 140" role="img" aria-labelledby="knight-title">
+            <title id="knight-title">각진 투구와 방패를 든 기사</title>
+            <path d="M28 17 Q50 3 72 17 L68 51 H32 Z" fill="#1D4ED8" />
+            <rect x="35" y="30" width="30" height="16" rx="6" fill="#F3E8D0" />
+            <path d="M38 37 H62" stroke="#1D4ED8" stroke-width="4" stroke-linecap="round" />
+            <rect x="28" y="56" width="44" height="57" rx="12" fill="#1D4ED8" />
+            <path d="M38 108 L34 130 M62 108 L66 130" stroke="#1D4ED8" stroke-width="10" stroke-linecap="round" />
+            <path d="M30 66 L15 94" stroke="#1D4ED8" stroke-width="9" stroke-linecap="round" />
+            <path d="M74 64 L93 72 V92 Q92 108 74 119 Q56 108 55 92 V72 Z" fill="#F3E8D0" stroke="#1D4ED8" stroke-width="5" stroke-linejoin="round" />
+            <circle cx="74" cy="87" r="6" fill="#1D4ED8" />
+          </svg>
+          <figcaption>시안 2<br />기사</figcaption>
+        </figure>
+
+        <figure>
+          <svg viewBox="0 0 100 140" role="img" aria-labelledby="captain-title">
+            <title id="captain-title">넓은 투구와 작은 방패를 든 대장</title>
+            <circle cx="50" cy="39" r="20" fill="#F3E8D0" stroke="#1D4ED8" stroke-width="5" />
+            <path d="M25 31 Q29 8 50 8 Q71 8 75 31 H81 V40 H19 V31 Z" fill="#1D4ED8" />
+            <circle cx="43" cy="39" r="2.5" fill="#1D4ED8" />
+            <circle cx="57" cy="39" r="2.5" fill="#1D4ED8" />
+            <path d="M28 61 Q50 52 72 61 L67 112 H33 Z" fill="#1D4ED8" />
+            <path d="M39 108 L35 130 M61 108 L65 130" stroke="#1D4ED8" stroke-width="10" stroke-linecap="round" />
+            <path d="M32 68 L17 93" stroke="#1D4ED8" stroke-width="9" stroke-linecap="round" />
+            <rect x="64" y="70" width="28" height="39" rx="12" fill="#F3E8D0" stroke="#1D4ED8" stroke-width="5" />
+            <path d="M78 78 V101" stroke="#1D4ED8" stroke-width="5" stroke-linecap="round" />
+          </svg>
+          <figcaption>시안 3<br />대장</figcaption>
+        </figure>
+      </section>
+    </main>
+  </body>
+</html>

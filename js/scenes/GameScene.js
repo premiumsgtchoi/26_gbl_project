@@ -1,4 +1,12 @@
-import { ArmyView } from '../entities/ArmyView.js';
+import {
+  playBattleStartSound,
+  playBattleWinSound,
+  playGateSound,
+  playResultSound,
+  preloadAudio,
+  startBgmAfterInteraction,
+} from '../audio.js';
+import { ArmyView, SOLDIER_TEXTURE_KEY } from '../entities/ArmyView.js';
 import { COLORS, COLOR_HEX, FONT, GAME_WIDTH, TIME } from '../config.js';
 import { STAGES } from '../stageData.js';
 import { GameHud } from '../ui/GameHud.js';
@@ -27,6 +35,13 @@ export class GameScene extends Phaser.Scene {
       : getRequestedStageIndex(window.location.search, STAGES.length) ?? 0;
   }
 
+  preload() {
+    preloadAudio(this);
+    if (!this.textures.exists(SOLDIER_TEXTURE_KEY)) {
+      this.load.image(SOLDIER_TEXTURE_KEY, 'assets/images/soldier.png');
+    }
+  }
+
   create() {
     this.stage = STAGES[this.stageIndex];
     this.troops = this.stage.startingTroops;
@@ -34,6 +49,7 @@ export class GameScene extends Phaser.Scene {
     this.isPaused = false;
     this.isFinished = false;
 
+    startBgmAfterInteraction(this);
     this.cameras.main.setBackgroundColor(COLORS.background);
     this.drawRoad();
     this.course = this.add.container(0, 0).setDepth(10);
@@ -197,9 +213,11 @@ export class GameScene extends Phaser.Scene {
     const choice = choices[choiceIndex];
     const previousTroops = this.troops;
     this.troops = applyOperation(this.troops, choice);
+    const troopDelta = this.troops - previousTroops;
     this.updateTroops();
-    this.hud.showChange(this.troops - previousTroops);
+    this.hud.showChange(troopDelta);
     this.hud.setStatus(`${choice.operator}${choice.value} 게이트 통과`);
+    playGateSound(this, troopDelta);
 
     if (this.troops === 0) {
       this.time.delayedCall(TIME.gateFailureResult, () => this.finishStage(false));
@@ -216,6 +234,7 @@ export class GameScene extends Phaser.Scene {
     let enemies = enemyCount;
     const battleView = this.createBattleView(enemies, isBoss);
     this.hud.setStatus(isBoss ? '최종 전투!' : `몬스터 ${enemyCount}마리와 전투`);
+    playBattleStartSound(this, isBoss);
 
     const timer = this.time.addEvent({
       delay: TIME.battleTick,
@@ -237,6 +256,7 @@ export class GameScene extends Phaser.Scene {
           } else if (isBoss) {
             this.finishStage(true);
           } else {
+            playBattleWinSound(this);
             this.hud.setStatus('전투 승리! 경로가 다시 합류합니다', COLOR_HEX.positive);
             this.time.delayedCall(TIME.pathMerge, () => {
               this.playerX = GAME_WIDTH / 2;
@@ -274,9 +294,10 @@ export class GameScene extends Phaser.Scene {
     }
     this.isFinished = true;
     this.isPaused = true;
+    const isFinalStage = this.stageIndex === STAGES.length - 1;
+    playResultSound(this, success, isFinalStage);
     this.hud.setStatus(success ? '최종 몬스터 격파!' : '병력이 모두 사라졌습니다');
     this.time.delayedCall(TIME.resultOverlay, () => {
-      const isFinalStage = this.stageIndex === STAGES.length - 1;
       const onRestart = () => this.scene.restart({ stageIndex: this.stageIndex });
       const onNext = success && !isFinalStage
         ? () => this.scene.restart({ stageIndex: this.stageIndex + 1 })

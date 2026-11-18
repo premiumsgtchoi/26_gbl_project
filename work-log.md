@@ -11,3 +11,16 @@
 2026-11-04 13:46:36 / 작업 4-0의 스테이지별 난이도 수치 조정 / js/stageData.js, spec.md, tasks.md, prompt.txt, work-log.md / 독립적인 게이트·전투 선택을 전수 계산해 1단계 6/8, 2단계 7/8, 3단계 8/32 승리와 2단계 단일 함정 조합을 검증함
 2026-11-04 13:49:24 / 남은 작업 4·5·6의 현재 스테이지 재시작, 2→3 진행, 최종 완료 화면 구현 / js/scenes/GameScene.js, js/ui/GameHud.js, tasks.md, prompt.txt, work-log.md / 일반 주소와 개발용 stage 쿼리의 새로고침 규칙을 분리하고 실제 장면 콜백 검사로 재시작·다음·처음부터 흐름을 검증함
 2026-11-04 13:54:11 / 작업 7의 일반 접속용 시작 화면 구현 / js/scenes/StartScene.js, js/utils/stageSelection.js, js/scenes/GameScene.js, js/main.js, spec.md, tasks.md, prompt.txt, work-log.md / 일반 주소는 시작 화면을 거치고 유효한 stage 쿼리는 바로 게임에 진입하도록 선택 로직을 공통화해 버튼·우회 흐름을 검증함
+2026-11-18 11:50:42 / 게임 명세에 맞춘 디자인 규칙 작성 / design.md, prompt.txt, work-log.md / 모바일 세로형 도형 기반 MVP에 필요한 색·타이포·버튼·배치·그래픽 스타일과 제외 범위만 정의함
+2026-11-18 11:52:51 / 플레이어 캐릭터 시안 세 가지 제작 / test.html, prompt.txt, work-log.md / 확정된 디자인의 다섯 색과 둥근 중세 카툰 스타일을 인라인 SVG 도형만으로 비교할 수 있게 구성함
+2026-11-18 11:56:39 / Live Server에서 test.html을 여는 방법 안내 / prompt.txt, work-log.md / 실행 중인 서버 주소의 파일명을 바꾸거나 탐색기 메뉴로 개별 HTML을 여는 절차를 설명함
+2026-11-18 11:59:45 / 디자인 규칙에 맞춘 시작 화면 정리 / js/scenes/StartScene.js, prompt.txt, work-log.md / 게임 진입 동작을 유지하면서 시작 화면에만 지정 타이포·버튼·둥근 중세 병사 도형과 세로 배치를 적용함
+2026-11-18 12:01:09 / 플레이어 병사를 2번 기사 시안으로 교체 / js/entities/ArmyView.js, prompt.txt, work-log.md / 기존 병사 경계와 배열 좌표 및 경로 판정 값은 유지하고 각진 투구·눈구멍·연 모양 방패만 Phaser 도형으로 변경함
+2026-11-18 12:02:52 / 배경과 캐릭터 이미지 생성용 프롬프트 작성 / prompt.txt, work-log.md / 확정 디자인의 카툰 스타일·시점·비율·색상과 글자 제외 조건을 게임 오브젝트 배치에 맞게 명시함
+2026-11-18 12:04:00 / 모바일 세로형 게임 배경 이미지 생성 / assets/images/background.png, prompt.txt, work-log.md / 이미지 생성 도구로 중앙 진행로를 비우고 지정 팔레트·평면 중세 카툰 스타일·무문자 조건을 적용한 9:16 배경을 제작함
+2026-11-18 12:06:57 / 투명 배경의 중세 병사 캐릭터 이미지 생성 / assets/images/soldier.png, prompt.txt, work-log.md / 이미지 생성 도구로 정면 전신 기사 캐릭터를 제작하고 깨끗한 알파 경계를 유지한 1024px PNG로 저장함
+2026-11-18 12:51:41 / 병사 이미지를 플레이어 부대 표시에 적용 / js/entities/ArmyView.js, js/scenes/GameScene.js, prompt.txt, work-log.md / 기존 배열 좌표와 경로 판정값을 유지한 채 텍스처 로드 성공 시 이미지를 표시하고 실패 시 기존 도형을 그리도록 분기함
+2026-11-18 12:57:13 / 버튼과 결과 팝업을 공용 UI 함수로 통일 / js/ui/uiFactory.js, js/scenes/StartScene.js, js/ui/GameHud.js, prompt.txt, work-log.md / 디자인 규칙의 56px 둥근 버튼과 주요·보조 색상 구분 및 둥근 팝업 패널을 한 곳에서 생성하도록 기존 UI를 교체함
+2026-11-18 12:58:55 / 게임 흐름별 효과음 후보와 무음 권장 순간 정리 / prompt.txt, work-log.md / 실제 게이트·전투·결과 발생 주기와 220ms 전투 반복을 기준으로 피드백 가치와 소리 피로도를 구분함
+2026-11-18 13:00:34 / 주요 게임 사건용 효과음 생성 및 적용 / assets/audio/*.wav, js/audio.js, js/scenes/StartScene.js, js/scenes/GameScene.js, js/ui/uiFactory.js, prompt.txt, work-log.md / 버튼·게이트·전투 시작과 승리·결과에 짧은 합성음을 연결하고 반복 상쇄·드래그·자동 전진은 무음으로 유지함
+2026-11-18 13:07:32 / 효과음 피치·볼륨 통합과 반복 BGM 및 음소거 버튼 적용 / assets/audio/bgm.mp3, js/audio.js, js/scenes/StartScene.js, js/scenes/GameScene.js, js/ui/uiFactory.js, js/ui/GameHud.js, prompt.txt, work-log.md / 버튼은 고정 피치, 나머지 효과음은 미세한 임의 피치와 볼륨 0.5로 중앙 관리하고 첫 입력 뒤 볼륨 0.3 BGM을 반복 재생하도록 구성함
