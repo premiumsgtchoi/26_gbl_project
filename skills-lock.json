@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "onestore-web-sdk": {
+      "source": "ONE-store/onestore_web_sdk_skills",
+      "commit": "1cd4b711ad45693d152a40f86ff9d5b75e2421fb",
+      "sourceType": "github",
+      "skillPath": "skills/onestore-web-sdk/SKILL.md",
+      "computedHash": "5aaa534e9bc9f82ae7d7434ebfa207d1108c91f46bc4f8e3b454015cabdd8d7d"
+    }
+  }
+}
