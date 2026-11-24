@@ -29,6 +29,7 @@ const AUDIO_FILES = {
 };
 
 let soundEnabled = true;
+let ringerSilent = false;
 let bgmSound;
 let bgmStarted = false;
 
@@ -101,7 +102,7 @@ export function getSoundToggleLabel() {
 
 export function toggleSound(scene) {
   soundEnabled = !soundEnabled;
-  scene.sound.mute = !soundEnabled;
+  scene.sound.mute = !soundEnabled || ringerSilent;
 
   if (soundEnabled) {
     startBgm(scene);
@@ -109,4 +110,9 @@ export function toggleSound(scene) {
   }
 
   return soundEnabled;
+}
+
+export function setRingerSilent(sound, silent) {
+  ringerSilent = silent;
+  sound.mute = !soundEnabled || ringerSilent;
 }

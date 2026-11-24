@@ -26,3 +26,4 @@
 2026-11-18 13:07:32 / 효과음 피치·볼륨 통합과 반복 BGM 및 음소거 버튼 적용 / assets/audio/bgm.mp3, js/audio.js, js/scenes/StartScene.js, js/scenes/GameScene.js, js/ui/uiFactory.js, js/ui/GameHud.js, prompt.txt, work-log.md / 버튼은 고정 피치, 나머지 효과음은 미세한 임의 피치와 볼륨 0.5로 중앙 관리하고 첫 입력 뒤 볼륨 0.3 BGM을 반복 재생하도록 구성함
 2026-11-18 13:11:31 / 이미지·음원 자산의 출처와 라이선스 표 작성 / CREDITS.md, prompt.txt, work-log.md / 실제 assets 목록과 코드 사용 위치 및 생성 기록만 반영하고 확인할 수 없는 제작 정보와 라이선스는 확인 필요로 남김
 2026-11-24 18:21:44 / 원스토어 웹게임 SDK 연동 상태 점검 / prompt.txt, work-log.md / 진입 HTML과 게임 시작 코드에 SDK가 없고 광고·결제는 명세상 범위 밖임을 확인함
+2026-11-24 18:30:17 / 원스토어 웹게임 SDK 기본 연동 및 일반 브라우저 유지 / index.html, js/bootstrap.js, js/main.js, js/scenes/LoadingScene.js, js/audio.js, prompt.txt, work-log.md / SDK 초기화 뒤 실제 Phaser 자산 로딩률과 게임 시작을 연결하고 앱 생명주기에서는 게임·소리를 함께 제어함
