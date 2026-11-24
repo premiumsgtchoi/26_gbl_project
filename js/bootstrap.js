@@ -1,11 +1,12 @@
-let sdk = null;
+export async function bootGame(sdk) {
+  await new Promise((resolve, reject) => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js';
+    script.onload = resolve;
+    script.onerror = () => reject(new Error('Phaser load failed.'));
+    document.body.append(script);
+  });
 
-try {
-  const { createSDK } = await import('https://h5sdk.onestore.net/lib/v1.2.0/onestore-h5-sdk.min.js');
-  sdk = createSDK();
-} catch (error) {
-  console.warn('ONE store SDK load failed; starting in browser mode.', error);
+  const { startGame } = await import('./main.js');
+  await startGame(sdk);
 }
-
-const { startGame } = await import('./main.js');
-startGame(sdk);

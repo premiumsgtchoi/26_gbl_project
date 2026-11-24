@@ -9,7 +9,17 @@
   <body>
     <main id="game-container" aria-label="연산 게이트 러너 게임 화면"></main>
 
-    <script src="https://cdn.jsdelivr.net/npm/phaser@3.90.0/dist/phaser.min.js"></script>
-    <script type="module" src="js/bootstrap.js"></script>
+    <script type="module">
+      let sdk = null;
+      try {
+        const { createSDK } = await import('https://h5sdk.onestore.net/lib/v1.2.0/onestore-h5-sdk.min.js');
+        sdk = createSDK();
+      } catch (error) {
+        console.warn('ONE store SDK load failed; starting in browser mode.', error);
+      }
+
+      const { bootGame } = await import('./js/bootstrap.js');
+      await bootGame(sdk);
+    </script>
   </body>
 </html>
